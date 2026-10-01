@@ -9,35 +9,30 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "reservation")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idReservation;
+    Long idReservation;
 
-    @Column(nullable = false)
-    private LocalDate dateDebut;
-
-    @Column(nullable = false)
-    private LocalDate dateFin;
+    LocalDate dateDebut;
+    LocalDate dateFin;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private StatutReservation statut;
+    StatutReservation statut;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_client", nullable = false)
-    private Client client;
+    @JoinColumn(name = "id_vehicule")
+    Vehicule vehicule;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_vehicule", nullable = false)
-    private Vehicule vehicule;
+    @JoinColumn(name = "id_client")
+    Client client;
 
-    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
-    private Contrat contrat;
+    @OneToOne(mappedBy = "reservation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    Contrat contrat;
 }

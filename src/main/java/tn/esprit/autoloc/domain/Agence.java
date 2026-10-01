@@ -10,32 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "agence")
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Agence {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    Long idAgence;
 
-    @Column(nullable = false, length = 100)
-    private String nom;
+    String nom;
+    String ville;
+    String adresse;
+    String telephone;
 
-    @Column(nullable = false, length = 50)
-    private String ville;
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Employe> employes = new ArrayList<>();
 
-    @Column(nullable = false, length = 255)
-    private String adresse;
-
-    @Column(nullable = false, length = 20)
-    private String telephone;
-
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL)
-    private List<Employe> employes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "agence")
-    private List<Vehicule> vehicules = new ArrayList<>();
+    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Vehicule> vehicules = new ArrayList<>();
 }
