@@ -15,14 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Equipement {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idEquipement;
 
     @Column(nullable = false, length = 100)
-    String libelle;
+    String libelle ;
 
-    @ManyToMany(mappedBy = "equipements", fetch = FetchType.LAZY)
+
+    @ManyToMany(mappedBy = "equipements",fetch =FetchType.LAZY )
     List<Vehicule> vehicules = new ArrayList<>();
+
 }

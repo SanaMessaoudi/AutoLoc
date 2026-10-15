@@ -1,34 +1,44 @@
 package tn.esprit.autoloc.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Agence;
+import tn.esprit.autoloc.repository.AgenceRepository;
 
 import java.util.List;
 
-public class IAgenceServiceImp implements IAgencyService{
+@Service
+@AllArgsConstructor
+
+public class IAgenceServiceImp implements IAgenceService{
+   /* @Autowired
+    private AgenceRepository agenceRepository;*/
+    private final AgenceRepository agenceRepository;
 
     @Override
     public Agence ajouterAgence(Agence agence) {
-        return null;
+        return agenceRepository.save(agence);
     }
 
     @Override
     public Agence modifierAgence(Agence agence) {
-        return null;
+        return agenceRepository.save(agence);
     }
 
     @Override
     public List<Agence> afficherToutesAgences() {
-        return List.of();
+        return agenceRepository.findAll();
     }
 
     @Override
-    public Agence afficherAgenceById() {
-        return null;
+    public Agence afficherAgenceById(Long idAgence) {
+        return agenceRepository.findById(idAgence).orElse(null);
     }
 
     @Override
-    public void supprimerAgence(Long id) {
+    public void supprimerAgence(Long idAgence) {
+         agenceRepository.deleteById(idAgence);
 
     }
 }

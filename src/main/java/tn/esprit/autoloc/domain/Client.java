@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,18 +15,29 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idClient;
+    private Long idClient;
 
-    String nom;
-    String prenom;
-    String email;
-    String telephone;
-    String numPermis;
-    LocalDate dateInscription;
+    @Column(nullable = false, unique = true, length = 20)
+    private String nom;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Reservation> reservations = new ArrayList<>();
+    @Column(nullable = false, unique = true, length = 20)
+    private String prenom;
+
+    @Column(nullable = false, unique = true, length = 220)
+    private String email;
+
+    @Column(nullable = false, unique = true, length = 20)
+    private String telephone;
+
+    @Column(nullable = false, unique = true, length = 20)
+    private String numPermis;
+
+    @Column(nullable = false)
+    private LocalDate dateInscription;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
+    private List<Reservation> reservations;
+
 }

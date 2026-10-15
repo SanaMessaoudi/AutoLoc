@@ -12,18 +12,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employe {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idEmploye;
+    private Long idEmploye;
 
-    String nom;
-    String prenom;
+    @Column(nullable = false, length = 50)
+    private String nom;
+
+    @Column(nullable = false, length = 50)
+    private String prenom;
 
     @Enumerated(EnumType.STRING)
-    RoleEmploye role;
+    @Column(nullable = false, length = 20)
+    private RoleEmploye role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_agence")
+    @JoinColumn(name = "agence_id")
     Agence agence;
+
 }

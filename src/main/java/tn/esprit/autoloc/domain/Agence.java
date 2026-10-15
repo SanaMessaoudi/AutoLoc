@@ -15,19 +15,26 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Agence {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idAgence;
+    private Long idAgence;
 
-    String nom;
-    String ville;
-    String adresse;
-    String telephone;
+    @Column(nullable = false, length = 50)
+    private String nom;
 
-    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Employe> employes = new ArrayList<>();
+    @Column(nullable = false, length = 50)
+    private String ville;
 
-    @OneToMany(mappedBy = "agence", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(nullable = false, length = 50)
+    private String adress;
+
+    @Column(nullable = false, unique = true, length = 20)
+    private String telephone;
+
+    @OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
+    List<Employe> ep = new ArrayList<>();
+
+    @OneToMany(mappedBy = "agence",fetch = FetchType.LAZY)
     List<Vehicule> vehicules = new ArrayList<>();
+
 }
