@@ -12,29 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "contrat")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Contract {
+public class Contrat {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long idContract;
+    @Column(name = "id_contrat") // Correspond exactement au nom de la colonne dans phpMyAdmin[cite: 4]
+    private Long idContract;
 
     @Column(nullable = false)
-    LocalDate dateSignature;
-
-    @Column(nullable = false, length = 20)
-    BigDecimal montantTotal;
+    private LocalDate dateSignature;
 
     @Column(nullable = false)
-    boolean valide;
+    private BigDecimal montantTotal;
+
+    @Column(nullable = false)
+    private boolean valide;
 
     @OneToOne(mappedBy = "contract")
-    Reservation reservation;
+    private Reservation reservation;
 
-    @OneToMany(mappedBy = "contract",cascade = CascadeType.ALL )
-    List<Paiement> paiements =new ArrayList<>();
-
-
+    @OneToMany(mappedBy = "contract", cascade = CascadeType.ALL)
+    private List<Paiement> paiements = new ArrayList<>();
 }

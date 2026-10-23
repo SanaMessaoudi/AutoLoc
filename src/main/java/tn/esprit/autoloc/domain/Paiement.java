@@ -28,5 +28,5 @@ public class Paiement {
 
     @ManyToOne
     @JoinColumn(name = "contrat_id")
-    Contract contract;
+    Contrat contract;
 }

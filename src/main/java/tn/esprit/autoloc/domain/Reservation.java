@@ -31,7 +31,7 @@ public class Reservation {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contrat_id")
     @JsonIgnore
-    private Contract contract;
+    private Contrat contract;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
