@@ -1,33 +1,40 @@
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = {"reservation", "paiement"})
-public class Contrat implements Serializable {
-
+public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idContrat;
+    Long idContract;
 
-    private LocalDate dateSignature;
-    private BigDecimal montantTotal;
-    private boolean valide;
+    @Column(nullable = false)
+    LocalDate dateSignature;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_reservation")
-    private Reservation reservation;
+    @Column(nullable = false, length = 20)
+    BigDecimal montantTotal;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_paiement")
-    private Paiement paiement;
+    @Column(nullable = false)
+    boolean valide;
+
+    @OneToOne(mappedBy = "contract")
+    Reservation reservation;
+
+    @OneToMany(mappedBy = "contract",cascade = CascadeType.ALL )
+    List<Paiement> paiements =new ArrayList<>();
+
+
 }
